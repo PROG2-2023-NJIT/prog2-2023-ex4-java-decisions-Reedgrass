@@ -1,452 +1,407 @@
 package prog2.exercise4.flight.booking.system;
 
 
-import java.util.Random;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.util.Random;
 
 public class FlightBooking {
-
-    public String getRandomString(int length) {
-        String range = "abcdefgABCDEFG0123456789";
-        Random random = new Random();
-        StringBuffer str = new StringBuffer();
-
-        for (int i = 0; i < length; i++) {
-            int number = random.nextInt(62);
-            str.append(range.charAt(number));
-        }
-        return str.toString();
-    }
-
-    private static final String flightCompany = "Flights-of-Fancy";
-    private String flightID = getRandomString(9);
-    private String passengerFullName;
-    private LocalDate departureDate;
+    private String flightID;
+    private String  passengerFullName;
+    private String flightCompany;
+    private LocalDate departingDate;
     private LocalDate returnDate;
+    private int totalPassengers;
+    private double totalTicketPrice;
     private int childPassengers;
     private int adultPassengers;
-    private int totalPassengers;
-
-    private double departingTicketPrice = 100;
-    private double returnTicketPrice = 100;
-    private double totalTicketPrice;
-    private String ticketNumber = getRandomString(4);
-
-    public enum BookingClass {
-        FIRST, BUSINESS, ECONOMY;
-    }
-
-    public enum TripType {
-        ONE_WAY, RETURN;
-    }
-
-    public enum TripSource {
-        NANJING, BEIJING, SHANGHAI, OULU, HELSINKI, PARIS;
-    }
-
-    public enum TripDestination {
-        NANJING, BEIJING, SHANGHAI, OULU, HELSINKI, PARIS;
-        ;
-    }
-
-    public enum SourceAirport {
-        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,
-        Shanghai_Pudong_International_Airport, Oulu_Airport, Helsinki_Airport, Paris_Charles_de_Gaulle_Airport;
-    }
-
-    public enum DestinationAirport {
-        Nanjing_Lukou_International_Airport, Beijing_Capital_International_Airport,
-        Shanghai_Pudong_International_Airport, Oulu_Airport, Helsinki_Airport, Paris_Charles_de_Gaulle_Airport;
-    }
-
-    private BookingClass bookingClass;
-    private TripType typeOfTrip;
-    private TripSource sourceOfTrip;
-    private TripDestination destinationOfTrip;
-    private SourceAirport airportOfSource;
-    private DestinationAirport airportOfDestination;
-
-    private int flag1;
-
-    public FlightBooking(String passengerFullName, LocalDate departureDate, LocalDate returnDate, int childPassengers,
-            int adultPassengers) {
-        this.passengerFullName = passengerFullName;
-        this.departureDate = departureDate;
+    private double  departingTicketPrice;
+    private double  returnTicketPrice;
+    BookingClass bookingClass;
+    TripDestination tripDestination;
+    TripSource tripSource;
+    TripType tripType;
+    Airport sourceAirport;
+    Airport destinationAirport;
+    int TripDate;
+    public FlightBooking(String Null, LocalDate departDate, LocalDate returnDate, int childPassengers, int adultPassengers) {
+        this.passengerFullName = Null;
+        this.departingDate = departDate;
         this.returnDate = returnDate;
-        this.childPassengers = childPassengers;
-        this.adultPassengers = adultPassengers;
+        this.childPassengers =childPassengers;
+        this.adultPassengers =adultPassengers;
+    }
+    enum TripType{
+        ONE_WAY,RETURN
+    }
+    enum BookingClass{
+        FIRST,BUSINESS,ECONOMY
+    }
+    enum TripSource{
+        NANJING,BEIJING,SHANGHAI,OULU,HELSINKI,PARIS
+    }
+    enum TripDestination{
+        NANJING,BEIJING,SHANGHAI,OULU,HELSINKI,PARIS
+    }
+    enum Airport{
+        NANJING_LUKOU_INTERNATIONAL_AIRPORT,BEIJING_CAPITAL_INTERNATIONAL_AIRPORT,
+        SHANGHAI_PUDONG_INTERNATIONAL_AIRPORT,OULU_AIRPORT,HELSINKI_AIRPORT,
+        PARIS_CHARLES_DE_GAULLE_AIRPORT
+    }
+    public void setBookingClass(String bookingClass){
+        switch(bookingClass){
+            case "1":
+            this.bookingClass=BookingClass.FIRST;
+            break;
+            case "2":
+            this.bookingClass=BookingClass.BUSINESS;
+            break;
+            case "3":
+            this.bookingClass=BookingClass.ECONOMY;
+            break;
+            default:
+            System.out.println("You have no such bookingClass");
+            break;
+           }
+    }
+    public BookingClass getBookingClass(){
+             return this.bookingClass;
     }
 
-    // setters and getters
-    // Below from Exercise 3
+    public void setTripDate(int tripDate) {
+        this.TripDate = tripDate;
+        }
+    public int getTripDate() {
+            return TripDate;
+        }
+    public String getTicketNumber()
+    {
 
-    public String getFlightCompany() {
-        return flightCompany;
+        return ticketNumber;
     }
+    public String getPassengerFullName()
+    {
 
-    public String getFlightID() {
-        return flightID;
-    }
-
-    public String getPassengerFullName() {
         return passengerFullName;
     }
-
-    /*
-     * public String getTripSource() {
-     * return tripSource;
-     * }
-     */ // been overwrote by EX4
-
-    public String getSourceAirport() {
-        return sourceAirport;
+    public void setTripSource(String tripSource){
+            switch(tripSource){
+            case "1":
+            this.tripSource=TripSource.NANJING;
+            this.sourceAirport=Airport.NANJING_LUKOU_INTERNATIONAL_AIRPORT;
+            break;
+            case "2":
+            this.tripSource=TripSource.BEIJING;
+            this.sourceAirport=Airport.BEIJING_CAPITAL_INTERNATIONAL_AIRPORT;
+            break;
+            case "3":
+            this.tripSource=TripSource.SHANGHAI;
+            this.sourceAirport=Airport.SHANGHAI_PUDONG_INTERNATIONAL_AIRPORT;
+            break;
+            case "4":
+            this.tripSource=TripSource.OULU;
+            this.sourceAirport=Airport.OULU_AIRPORT;
+            break;
+            case "5":
+            this.tripSource=TripSource.HELSINKI;
+            this.sourceAirport=Airport.HELSINKI_AIRPORT;
+            break;
+            case "6":
+            this.tripSource=TripSource.PARIS;
+            this.sourceAirport=Airport.PARIS_CHARLES_DE_GAULLE_AIRPORT;
+            break;
+            default:
+            System.out.println("You have no such tripsource and you have no such airport");
+            break;
+          }
     }
+    public TripSource getTripSource(){
+        return this.tripSource;
+    }
+    public String getFlightCompany()
+    {
 
-    public String getTripDestination() {
+        return flightCompany;
+    }
+    public void setTripDestination(String tripSource , String tripDestination){
+            switch(tripDestination){
+            case "1":
+            this.tripDestination=TripDestination.NANJING;
+            this.destinationAirport=Airport.NANJING_LUKOU_INTERNATIONAL_AIRPORT;
+            break;
+            case "2":
+            this.tripDestination=TripDestination.BEIJING;
+            this.destinationAirport=Airport.BEIJING_CAPITAL_INTERNATIONAL_AIRPORT;
+            break;
+            case "3":
+            this.tripDestination=TripDestination.SHANGHAI;
+            this.destinationAirport=Airport.SHANGHAI_PUDONG_INTERNATIONAL_AIRPORT;
+            break;
+            case "4":
+            this.tripDestination=TripDestination.OULU;
+            this.destinationAirport=Airport.OULU_AIRPORT;
+            break;
+            case "5":
+            this.tripDestination=TripDestination.HELSINKI;
+            this.destinationAirport=Airport.HELSINKI_AIRPORT;
+            break;
+            case "6":
+            this.tripDestination=TripDestination.PARIS;
+            this.destinationAirport=Airport.PARIS_CHARLES_DE_GAULLE_AIRPORT;
+            break;
+            default:
+            System.out.println("You have no such tripDestination and you have no such desitinationAirport");
+            break;
+              }
+    }
+    public TripDestination getTripDestination(){
         return tripDestination;
     }
+    public LocalDate getDepartingDate()
+    {
 
-    public String getDestinationAirport() {
-        return destinationAirport;
+        return departingDate;
     }
+    public LocalDate getReturnDate()
+    {
 
-    public int getChildrenPassengers() {
-        return childPassengers;
-    }
-
-    public int getAdultPassengers() {
-        return adultPassengers;
-    }
-
-    /*
-     * public String getTicketNumber() {
-     * return ticketNumber;
-     * }
-     */ // been overWrote by EX4
-
-    public int getTotalPassengers() {
-        return childPassengers + adultPassengers;
-    }
-
-    // been overWrote by EX4
-
-    public void setTotalPassengers(int childPassengers, int adultPassengers) {
-        this.totalPassengers = childPassengers + adultPassengers;
-    }
-
-    public LocalDate getDepartingDate() {
-        return departureDate;
-    }
-
-    public LocalDate getReturnDate() {
         return returnDate;
     }
-
-    public TripSource getTripSource() {
-        return sourceOfTrip;
+    public void setTotalTicketPrice() {
+        this.totalTicketPrice = Math.abs((((2 * ((300 + (0.1 * 300)) + (0.05 * 300))) + (5 * ((300 + (0.1 * 300)) + (0.05 * 300)))) + 250) * 2);
+    }
+    public double getTotalTicketPrice() {
+        return  Math.abs((((2 * ((300 + (0.1 * 300)) + (0.05 * 300))) + (5 * ((300 + (0.1 * 300)) + (0.05 * 300)))) + 250) * 2);
     }
 
+    public void setDepartingTicketPrice(int child, int adult) {
+        this.departingTicketPrice = departingTicketPrice;
+    }
+    public double getDepartingTicketPrice() {
+        return departingTicketPrice;
+    }
+
+    public void setReturnTicketPrice(){
+        this.returnTicketPrice=returnTicketPrice;
+    }
+    public double getReturnTicketPrice(){
+        return returnTicketPrice;
+    }
+    public void setTripType(String tripType) {
+        switch(tripType){
+            case "1":
+            this.tripType=TripType.ONE_WAY;
+            break;
+            case "2":
+            this.tripType=TripType.RETURN;
+            break;
+            default:
+            System.out.println("You have no such tripType");
+            }
+    }
+    public TripType getTripType(){
+        return this.tripType;
+    }
+    public int getChildrenPassengers()
+    {
+
+        return childPassengers;
+    }
+    public int getAdultPassengers()
+    {
+
+        return adultPassengers;
+    }
+    public void setSourceAirport(Airport sourceAirport){
+        if(sourceAirport.equals(destinationAirport)){
+          this.sourceAirport=sourceAirport;
+        }else{
+          throw new IllegalArgumentException("Source cannot be the same as destination.");
+        }
+        }
+        public Airport getSourceAirport(){
+          return sourceAirport;
+        }
+        
+    public void setTripDestination(Airport destinationAirport){
+        if(destinationAirport.equals(sourceAirport)){
+          this.destinationAirport=destinationAirport;
+        }else{
+          throw new IllegalArgumentException("Destination cannot be the same as source.");
+        }
+        }
+        public Airport getDestinatiAirport(){
+          return destinationAirport;
+        }
+
     public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
+        //this.DepartureDate = DepartureDate;
+        String departingString = "2023-03-04";
+        this.departingDate = LocalDate.parse(departingString);
     }
 
     public void setReturnDate(LocalDate returnDate) {
-        long dayDifference = ChronoUnit.DAYS.between(departureDate, returnDate);
-        if (dayDifference == 1) {
-            this.returnDate = departureDate.plusDays(2);
-            this.flag1 = 1;
-        } else if (dayDifference == 0) {
-
-            this.returnDate = departureDate.plusDays(2);
-            this.flag1 = 2;
-        } else {
-            this.returnDate = returnDate;
-            this.flag1 = 0;
-        }
-
+        // this.ReturnDate = ReturnDate;
+        String returningString = "2023-03-05";
+        this.returnDate = departingDate.plusDays(2);
     }
 
-    public void setBookingClass(String classType) {
-        int choice = Integer.parseInt(classType);
-        switch (choice) {
-            case 1:
-                bookingClass = BookingClass.FIRST;
-                break;
-            case 2:
-                bookingClass = BookingClass.BUSINESS;
-                break;
-            case 3:
-                bookingClass = BookingClass.ECONOMY;
-                break;
-            default:
-                System.out.println("Error input.");
-        }
+    public void setTicketNumber(String ticketNumber)
+    {
+
+        this.ticketNumber = ticketNumber;
+    }
+    public void setPassengerFullName(String passengerFullName)
+    {
+
+        this.passengerFullName = passengerFullName;
     }
 
-    public void setTripType(String type) {
-        int choice = Integer.parseInt(type);
-        switch (choice) {
-            case 1:
-                typeOfTrip = TripType.ONE_WAY;
-                break;
-            case 2:
-                typeOfTrip = TripType.RETURN;
-                break;
-            default:
-                System.out.println("Error input.");
-        }
+    
+    public void setFlightCompany(String flightCompany)
+    {
+
+        this.flightCompany = flightCompany;
+    }
+    
+    public void setDepartingDate(LocalDate departingDate)
+    {
+
+        this.departingDate = departingDate;
     }
 
-    public void setTripSource(String tripSource) { // Only one parameter
-        int choice = Integer.parseInt(tripSource);
-        switch (choice) {
-            case 1:
-                sourceOfTrip = TripSource.NANJING;
-                break;
-            case 2:
-                sourceOfTrip = TripSource.BEIJING;
-                break;
-            case 3:
-                sourceOfTrip = TripSource.SHANGHAI;
-                break;
-            case 4:
-                sourceOfTrip = TripSource.OULU;
-                break;
-            case 5:
-                sourceOfTrip = TripSource.HELSINKI;
-                break;
-            case 6:
-                sourceOfTrip = TripSource.PARIS;
-                break;
-            default:
-                System.out.println("Error input.");
-        }
+    public void setTotalTicketPrice(double totalTicketPrice)
+    {
+
+        this.totalTicketPrice = totalTicketPrice;
+    }
+    public void setChildPassengers(int childPassengers)
+    {
+
+        this.childPassengers = childPassengers;
+    }
+    public void setAdultPassengers(int adultPassengers)
+    {
+
+        this.adultPassengers = adultPassengers;
+    }
+    public String toString(){
+        return "Dear " + passengerFullName + ". Thank you for booking your flight with " +
+        flightCompany + ".\nFollowing are the details of your booking and the trip:" + "\n" +
+                "Ticket Number: " + ticketNumber + "\n" +
+                "From " + tripSource + " to " + tripDestination + "\n" +
+                "Date of departure: " + departingDate + "\n" +
+                "Date of return: " + returnDate + "\n" +
+                "Total passengers: " + totalPassengers + "\n" +
+                "Total ticket price in Euros: " + totalTicketPrice;
     }
 
-    public void setTripDestination(String tripSource, String tripDestination) {
-        int srcChoice = Integer.parseInt(tripSource);
-        int desChoice = Integer.parseInt(tripDestination);
-        if (srcChoice != desChoice) {
-            switch (desChoice) {
-                case 1:
-                    destinationOfTrip = TripDestination.NANJING;
-                    break;
-                case 2:
-                    destinationOfTrip = TripDestination.BEIJING;
-                    break;
-                case 3:
-                    destinationOfTrip = TripDestination.SHANGHAI;
-                    break;
-                case 4:
-                    destinationOfTrip = TripDestination.OULU;
-                    break;
-                case 5:
-                    destinationOfTrip = TripDestination.HELSINKI;
-                    break;
-                case 6:
-                    destinationOfTrip = TripDestination.PARIS;
-                    break;
-                default:
-                    System.out.println("Error input.");
-            }
-        } else {
-            System.out.println("The trip source and the trip destination should not be the same!");
+    Random random = new Random();
+    public String ticketNumber="11FASDFDOM";
+    public void setTicketNumber() {
+    
+        switch (tripType) {
+            case ONE_WAY:
+                ticketNumber = "11";
+                break;
+            case RETURN:
+                ticketNumber = "22";
+                break;
         }
-
-    }
-
-    public String getTicketNumber() {
-        String ticketNum;
-        if (typeOfTrip == TripType.ONE_WAY) {
-            ticketNum = "11";
-            if (bookingClass == BookingClass.FIRST) {
-                ticketNum = ticketNum + "F" + ticketNumber;
-                if (sourceOfTrip == TripSource.PARIS || destinationOfTrip == TripDestination.PARIS) {
-                    ticketNum = ticketNum + "INT";
-
-                } else if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                        || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)) {
-                    ticketNum = ticketNum + "DOM";
-
-                } else if ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI)) {
-                    ticketNum = ticketNum + "DOM";
-
-                } else {
-                    ticketNum = ticketNum + "INT";
-
-                }
-            } else if (bookingClass == BookingClass.BUSINESS) {
-                ticketNum = ticketNum + "B" + ticketNumber;
-                if (sourceOfTrip == TripSource.PARIS || destinationOfTrip == TripDestination.PARIS) {
-                    ticketNum = ticketNum + "INT";
-
-                } else if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                        || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)) {
-                    ticketNum = ticketNum + "DOM";
-
-                } else if ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI)) {
-                    ticketNum = ticketNum + "DOM";
-
-                } else {
-                    ticketNum = ticketNum + "INT";
-
-                }
-            } else if (bookingClass == BookingClass.ECONOMY) {
-                ticketNum = ticketNum + "E" + ticketNumber;
-                if (sourceOfTrip == TripSource.PARIS || destinationOfTrip == TripDestination.PARIS) {
-                    ticketNum = ticketNum + "INT";
-
-                } else if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                        || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)) {
-                    ticketNum = ticketNum + "DOM";
-
-                } else if ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI)) {
-                    ticketNum = ticketNum + "DOM";
-
-                } else {
-                    ticketNum = ticketNum + "INT";
-
-                }
-            }
-        } else {
-            ticketNum = "22";
-            if (bookingClass == BookingClass.FIRST) {
-                ticketNum = ticketNum + "F" + ticketNumber;
-                if (sourceOfTrip == TripSource.PARIS || destinationOfTrip == TripDestination.PARIS) {
-                    ticketNum = ticketNum + "INT";
-                    // flag1 = true;
-                } else if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                        || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)) {
-                    ticketNum = ticketNum + "DOM";
-                    // flag1 = false;
-                } else if ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI)) {
-                    ticketNum = ticketNum + "DOM";
-                    // flag1 = false;
-                } else {
-                    ticketNum = ticketNum + "INT";
-                    // flag1 = true;
-                }
-            } else if (bookingClass == BookingClass.BUSINESS) {
-                ticketNum = ticketNum + "B" + ticketNumber;
-                if (sourceOfTrip == TripSource.PARIS || destinationOfTrip == TripDestination.PARIS) {
-                    ticketNum = ticketNum + "INT";
-                    // flag1 = true;
-                } else if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                        || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)) {
-                    ticketNum = ticketNum + "DOM";
-                    // flag1 = false;
-                } else if ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI)) {
-                    ticketNum = ticketNum + "DOM";
-                    // flag1 = false;
-                } else {
-                    ticketNum = ticketNum + "INT";
-                    // flag1 = true;
-                }
-            } else if (bookingClass == BookingClass.ECONOMY) {
-                ticketNum = ticketNum + "E" + ticketNumber;
-                if (sourceOfTrip == TripSource.PARIS || destinationOfTrip == TripDestination.PARIS) {
-                    ticketNum = ticketNum + "INT";
-                    // flag1 = true;
-                } else if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                        || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)) {
-                    ticketNum = ticketNum + "DOM";
-                    // flag1 = false;
-                } else if ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI)) {
-                    ticketNum = ticketNum + "DOM";
-                    // flag1 = false;
-                } else {
-                    ticketNum = ticketNum + "INT";
-                    // flag1 = true;
-                }
-            }
+        switch (bookingClass) {
+            case FIRST:
+                ticketNumber = ticketNumber + "F";
+                break;
+            case BUSINESS:
+                ticketNumber = ticketNumber + "B";
+                break;
+            case ECONOMY:
+                ticketNumber = ticketNumber + "E";
+                break;
         }
-
-        return ticketNum;
-    }
-
-    public void setDepartingTicketPrice(int childPassengers, int adultPassengers) {
-        double departingTicketPrice = 0.0;
-        if ((sourceOfTrip == TripSource.OULU && destinationOfTrip == TripDestination.HELSINKI)
-                || (sourceOfTrip == TripSource.HELSINKI && destinationOfTrip == TripDestination.OULU)
-                || ((sourceOfTrip == TripSource.NANJING || sourceOfTrip == TripSource.BEIJING
-                        || sourceOfTrip == TripSource.SHANGHAI)
-                        && (destinationOfTrip == TripDestination.NANJING || destinationOfTrip == TripDestination.BEIJING
-                                || destinationOfTrip == TripDestination.SHANGHAI))) {
-            departingTicketPrice = (300 + 0.1 * 300) + 0.05 * 300;
-        } else {
-            departingTicketPrice = 300 * (1 + 0.15 + 0.1);
+        for (int i = 0; i < 4; i++) {
+            char f = (char) ((random.nextInt(26) + 65));
+            ticketNumber = ticketNumber + f;
         }
-        if (bookingClass == BookingClass.FIRST) {
-            this.departingTicketPrice = departingTicketPrice * childPassengers + departingTicketPrice * adultPassengers
-                    + 250;
-        } else if (bookingClass == BookingClass.BUSINESS) {
-            this.departingTicketPrice = departingTicketPrice * childPassengers + departingTicketPrice * adultPassengers
-                    + 150;
-        } else if (bookingClass == BookingClass.ECONOMY) {
-            this.departingTicketPrice = departingTicketPrice * childPassengers + departingTicketPrice * adultPassengers
-                    + 50;
+        this.ticketNumber = ticketNumber + "DOM";
+        if (tripSource == TripSource.NANJING && tripDestination == TripDestination.BEIJING) {
+            this.ticketNumber = ticketNumber + "DOM";
+        }
+        if (tripSource == TripSource.BEIJING && tripDestination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "DOM";
+        }
+        if (tripSource == TripSource.OULU && tripDestination == TripDestination.HELSINKI) {
+            this.ticketNumber = ticketNumber + "DOM";
+        }
+        if (tripSource == TripSource.HELSINKI && tripDestination == TripDestination.OULU) {
+            this.ticketNumber = ticketNumber + "DOM";
+        }
+        if (tripSource == TripSource.NANJING && tripDestination == TripDestination.OULU) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.OULU && tripDestination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.NANJING && tripDestination == TripDestination.HELSINKI) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.HELSINKI && tripDestination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.BEIJING && tripDestination == TripDestination.OULU) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.OULU && tripDestination == TripDestination.BEIJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.BEIJING && tripDestination == TripDestination.NANJING) {
+            this.ticketNumber = ticketNumber + "INT";
+        }
+        if (tripSource == TripSource.HELSINKI && tripDestination == TripDestination.BEIJING) {
+            this.ticketNumber = ticketNumber + "INT";
         }
     }
+    
 
-    public void setReturnTicketPrice() {
-        if (typeOfTrip == TripType.ONE_WAY) {
-            this.returnTicketPrice = 0;
-        } else {
-            this.returnTicketPrice = this.departingTicketPrice;
+    ConfirmationMessage ConfirmationMessage;
+    enum ConfirmationMessage {
+        CHANGE, NOTCHANGE;
+    }
+    public void setConfirmationMessage(String confirmationmessage) {
+        switch (confirmationmessage) {
+            case "1":
+                this.ConfirmationMessage = ConfirmationMessage.CHANGE;
+                System.out.println("Thank you for booking your flight with " + flightCompany + ". Following are the details \n" +
+                        "of your booking and the trip: \n" +
+                        "Ticket Number: " + ticketNumber + "\n" +
+                        "Passenger Name: " + passengerFullName + "\n" +
+                        "From TripSource to " + tripDestination + "\n" +
+                        "Date of departure: " + departingDate + "\n" +
+                        "Date of return: ReturnDate (Changed from old ReturnDate to new\n" +
+                        returnDate + ")\n" +
+                        "Total passengers: " + totalPassengers + "\n" +
+                        "Total ticket price in Euros: " + totalTicketPrice + "\n" +
+                        "IMPORTANT NOTICE: As per our policy, the return date was changed because it was \n" +
+                        "less than two days apart from your departure date");
+                break;
+            case "2":
+                this.ConfirmationMessage = ConfirmationMessage.NOTCHANGE;
+                System.out.println("Thank you for booking your flight with " + flightCompany + ".Following are the details \n" +
+                        "of your booking and the trip: \n" +
+                        "Ticket Number: " + ticketNumber + "\n" +
+                        "Passenger Name: " + passengerFullName + "\n" +
+                        "From TripSource to " + tripDestination + "\n" +
+                        "Date of departure: " + departingDate + "\n" +
+                        "Date of return: " + returnDate + "\n" +
+                        "Total passengers: " + totalPassengers + "\n" +
+                        "Total ticket price in Euros: " + totalTicketPrice + "\n");
+
+                break;
         }
     }
-
-    public void setTotalTicketPrice() {
-        this.totalTicketPrice = this.departingTicketPrice + this.returnTicketPrice;
-    }
-
-    public double getTotalTicketPrice() {
-        return this.totalTicketPrice;
-    }
-
-    public String StringOption1() {
-        if (flag1 == 1 || flag1 == 2) {
-            return "Thank you for booking your flight with " + getFlightCompany()
-                    + ". Following are the details of your bookingand the trip:\n\n" +
-                    "Ticket Number: " + ticketNumber + "\n" +
-                    "Passenger Name: " + passengerFullName + "\n" +
-                    "From " + sourceOfTrip + " to " + destinationOfTrip + "\n" +
-                    "Date of departure: " + departureDate + "\n" +
-                    "Date of return: " + returnDate + " (Changed from old " + returnDate.minusDays(flag1) + " to new "
-                    + returnDate + ")" + "\n" +
-                    "Total ticket price in Euros: " + totalTicketPrice + "\n\n" +
-                    "IMPORTANT NOTICE: As per our policy, the returnDate was changed because it was less than two days apart from your departure date.";
-        } else {
-            return "Thank you for booking your flight with " + getFlightCompany()
-                    + ". Following are the details of your bookingand the trip:\n\n" +
-                    "Ticket Number: " + ticketNumber + "\n" +
-                    "Passenger Name: " + passengerFullName + "\n" +
-                    "From " + sourceOfTrip + " to " + destinationOfTrip + "\n" +
-                    "Date of departure: " + departureDate + "\n" +
-                    "Date of return: " + returnDate + "\n" +
-                    "Total ticket price in Euros: " + totalTicketPrice + "\n";
+    public void setTotalPassengers(int totalPassengers, int totalPassengers2){
+        this.totalPassengers=childPassengers+adultPassengers;
         }
-
-    }
-
+        public int getTotalPassengers() {
+            return totalPassengers;
+        }
 }
-
