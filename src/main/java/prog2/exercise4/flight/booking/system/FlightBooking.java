@@ -56,7 +56,7 @@ public class FlightBooking {
 
     public String getPassengerFullName() {
 
-        return passengerFullName;
+        return passengerFullName ;
     }
 
     public void setBookingClass(String bookingClass) {
